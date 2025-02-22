@@ -1,23 +1,28 @@
-require("dotenv").config();
+/**
+ * Express server initialization and database setup.
+ * Configures middleware, routes, and establishes DB connection.
+ * Syncs database models and starts server on specified PORT.
+ * Uses Sequelize for ORM and Express for API routing.
+ */
 const express = require("express");
-const cors = require("cors");
-const bodyParser = require("body-parser");
+const sequelize = require("./config");
+const authRoutes = require("./routes/authRoutes");
 
-// initializing the express app
 const app = express();
+app.use(express.json());
 
-// middlewares
-app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use("/api/auth", authRoutes);
 
-// Route
-app.get("/", (req, res) => {
-  res.send("E-Commerce Platform API");
-});
+(async () => {
+  try {
+    await sequelize.sync({ alter: true });
+    console.log("Database synced.");
 
-// Starting the server
-const PORT = process.env.PORT;
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-});
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error("Unable to connect to the database:", error);
+  }
+})();

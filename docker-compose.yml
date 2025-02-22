@@ -1,3 +1,4 @@
+
 services:
   app:
     build:
@@ -9,10 +10,10 @@ services:
       - .env
     depends_on:
       - database
-      - cache
     volumes:
       - .:/app
       - /app/node_modules
+    restart: always
 
   database:
     image: postgres:14-alpine
@@ -22,14 +23,9 @@ services:
       POSTGRES_DB: ${DB_NAME}
     volumes:
       - pgdata:/var/lib/postgresql/data
-      - ./scripts:/scripts
     ports:
       - "5432:5432"
-
-  cache:
-    image: redis:latest
-    ports:
-      - "6379:6379"
+    restart: always
 
 volumes:
   pgdata:

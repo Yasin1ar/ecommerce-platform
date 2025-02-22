@@ -1,3 +1,14 @@
+/*
+SQL schema for an e-commerce database system. Creates tables for:
+- users: Stores user accounts with authentication and role information
+- products: Contains product catalog with pricing
+- inventory: Tracks product stock levels
+- orders: Records customer orders and their status
+- order_items: Stores individual items within each order
+
+Tables include primary keys, foreign key relationships, and timestamps.
+*/
+
 -- Users Table
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,

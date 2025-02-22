@@ -4,13 +4,15 @@ FROM node:18-alpine
 # Set working directory
 WORKDIR /app
 
-# Copy pacakge.json and install dependencies
+# Copy package files and install dependencies
 COPY package*.json ./
 RUN npm install
 
-# Copy source code
+# Copy rest of the application
 COPY . .
 
-# Expose the port and start the application
+# Expose port
 EXPOSE 5000
-CMD [ "npm", "start" ]
+
+# Start the application
+CMD ["node", "src/app.js"]
