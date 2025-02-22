@@ -14,7 +14,16 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
-exports.register = async (req, res) => {
+exports.registerUser = async (req, res) => {
+  /**
+ * Registers a new user with hashed password in the database.
+ * 
+ * @async
+ * @param {Object} req - Express request object containing username, email and password
+ * @param {Object} res - Express response object
+ * @returns {Object} JSON response with success message and user data or error
+ * @throws {Error} Returns 500 status if registration fails
+ */
   try {
     const { username, email, password } = req.body;
 
@@ -31,7 +40,17 @@ exports.register = async (req, res) => {
   }
 };
 
-exports.login = async (req, res) => {
+exports.loginUser = async (req, res) => {
+  /**
+ * Authenticates user login and generates JWT token.
+ * Validates email and password against database records.
+ * 
+ * @param {Object} req - Express request object containing email and password
+ * @param {Object} res - Express response object
+ * @returns {Object} Response with JWT token or error message
+ * @throws {401} If email/password invalid
+ * @throws {500} If server error occurs
+ */
   try {
     const { email, password } = req.body;
 
