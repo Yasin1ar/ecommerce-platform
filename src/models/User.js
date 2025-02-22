@@ -5,7 +5,7 @@
  * Role can be either 'user' or 'admin', defaults to 'user'.
  */
 const { DataTypes } = require("sequelize");
-const sequelize = require("../config");
+const sequelize = require("../config/database");
 
 const User = sequelize.define("User", {
   username: {

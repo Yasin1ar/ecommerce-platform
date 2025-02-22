@@ -6,14 +6,18 @@
  */
 const helmet = require("helmet");
 const express = require("express");
-const sequelize = require("./config");
+const sequelize = require("./config/database");
 const authRoutes = require("./routes/authRoutes");
+const productRoutes = require("./routes/productRoutes");
+const categoryRoutes = require('./routes/categoryRoutes');
 const errorHandler = require("./middleware/errorHandler");
 
 const app = express();
 app.use(express.json());
 app.use(helmet());
 app.use("/api/auth", authRoutes);
+app.use("/api/products", productRoutes);
+app.use('/api/categories', categoryRoutes);
 app.use(errorHandler);
 
 (async () => {

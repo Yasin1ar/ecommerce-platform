@@ -18,9 +18,9 @@ const sequelize = new Sequelize(
   process.env.DB_USER,
   process.env.DB_PASSWORD,
   {
-    host: process.env.DB_HOST,
+    host:  "localhost",
     dialect: process.env.DB_DIALECT,
-    logging: true, // logs queries
+    logging: false, // logs queries
   }
 );
 
