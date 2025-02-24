@@ -1,12 +1,16 @@
+// routes/productRoutes.js
+
 const express = require('express');
 const productController = require('../controllers/productController');
+const { validateProduct, validateProductId } = require('../middleware/productValidator');
+const authorize = require('../middleware/authorize');
+
 const router = express.Router();
 
-// CRUD routes for products
-router.post('/', productController.createProduct);
-router.get('/', productController.getProducts);
-router.get('/:id', productController.getProductById);
-router.put('/:id', productController.updateProduct);
-router.delete('/:id', productController.deleteProduct);
+router.post('/', authorize(['admin']), validateProduct, productController.createProduct);
+router.get('/', productController.getAllProducts);
+router.get('/:id', validateProductId, productController.getProductById);
+router.put('/:id', authorize(['admin']), [validateProductId, validateProduct], productController.updateProduct);
+router.delete('/:id', authorize(['admin']), validateProductId, productController.deleteProduct);
 
 module.exports = router;
