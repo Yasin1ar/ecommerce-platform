@@ -1,8 +1,23 @@
+const Sequelize = require('sequelize');
+const db = require('../config/database');
+
 const Product = require('./Product');
-const Category = require('./Category');
+const Inventory = require('./Inventory');
 
-// Define relationships
-Category.hasMany(Product, { foreignKey: 'categoryId' });
-Product.belongsTo(Category, { foreignKey: 'categoryId' });
+// Initialize models
+const models = {
+    Product: Product.init(db, Sequelize),
+    Inventory: Inventory.init(db, Sequelize)
+};
 
-module.exports = { Product, Category };
+// Setup associations
+Object.values(models)
+    .filter(model => typeof model.associate === 'function')
+    .forEach(model => model.associate(models));
+
+// Export models and Sequelize
+module.exports = {
+    ...models,
+    sequelize: db,
+    Sequelize
+};

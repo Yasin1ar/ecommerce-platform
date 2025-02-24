@@ -20,6 +20,7 @@ exports.createProduct = async (req, res, next) => {
 exports.getAllProducts = async (req, res, next) => {
   try {
     const products = await Product.findAll();
+    console.error("products");
     res.status(200).json({
       success: true,
       data: products,

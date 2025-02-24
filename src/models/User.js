@@ -7,7 +7,7 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/database");
 
-const User = sequelize.define("User", {
+const User = sequelize.define("users", {
   username: {
     type: DataTypes.STRING,
     allowNull: false,

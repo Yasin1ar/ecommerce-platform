@@ -5,7 +5,7 @@ module.exports = (requiredRoles) => {
 
 
     if (!req.user) {
-      return res.status(401).json({ success: false, message: 'Unauthorized' });
+      return res.status(401).json({ success: false, message: 'Unauthorized: Please login or register first' });
     }
 
     if (!requiredRoles.includes(req.user.role)) {

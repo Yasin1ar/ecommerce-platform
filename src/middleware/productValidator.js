@@ -11,9 +11,6 @@ exports.validateProduct = [
   body('price')
     .notEmpty().withMessage('Price is required')
     .isFloat({ gt: 0 }).withMessage('Price must be a positive number'),
-  body('categoryId')
-    .notEmpty().withMessage('Category ID is required')
-    .isInt().withMessage('Category ID must be an integer'),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
